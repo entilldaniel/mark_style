@@ -2,9 +2,14 @@ defmodule MarkStyle do
   alias Earmark.AstTools
 
   def as_styled(contents, map \\ %{}) do
-    {:ok, ast, _} = EarmarkParser.as_ast(contents)
-    result = transformed(ast, map)
-    Earmark.transform(result)
+    case EarmarkParser.as_ast(contents) do
+      {:ok, ast, _} ->
+        result = transformed(ast, map)
+        Earmark.transform(result)
+
+      {:error, _, _} ->
+        Earmark.as_html(contents)
+    end
   end
 
   defp transformed([], _map), do: []
@@ -24,7 +29,6 @@ defmodule MarkStyle do
 
         case Map.fetch(map, key) do
           {:ok, classes} ->
-            
             AstTools.merge_atts_in_node({tag, attr, children, meta}, class: classes)
 
           :error ->
@@ -34,6 +38,4 @@ defmodule MarkStyle do
       true
     )
   end
-
 end
-

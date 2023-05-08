@@ -34,5 +34,10 @@ defmodule MarkStyleTest do
     res = MarkStyle.as_styled(@contents, %{p: 1})
     assert res != nil
   end
+
+  test "doesn't fail on unbalanced backticks" do
+    res = MarkStyle.as_styled("This is the test `", %{p: 1})
+    assert res != nil
+  end  
   
 end
