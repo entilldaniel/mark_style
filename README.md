@@ -1,16 +1,18 @@
 # MarkStyle
 
-**TODO: Add description**
+Adds custom classes to generated html. For simplified use with phoenix.
+This is my first library so please feel free to comment and create issues or suggest improvements. 
+
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `mark_style` to your list of dependencies in `mix.exs`:
+mark_style isn't published to hex, and I don't know if the need for this library is
+something anyone has.
 
 ```elixir
 def deps do
   [
-    {:mark_style, "~> 0.1.0"}
+    {:mark_style, git: "https://github.com/whalenut/mark_style.git", tag: "1.1"
   ]
 end
 ```

@@ -2,7 +2,21 @@ defmodule MarkStyle do
   alias Earmark.AstTools
   require Logger
 
-  def as_styled(contents, map \\ %{}) do
+  @moduledoc """
+  Utility for addings custom styles to html elements produced by earmark.
+  """
+
+  @doc """
+  Takes in a raw markdown string and a map with styles
+  ```elixir
+  styles = %{p: "text-2xl text-red-900"}
+  md = "# Title\nThe quick brown fox."
+  MarkStyle.as_styled(md, styles)
+  ```
+  Would yield:
+  `<h1>\nTitle</h1>\n<p class=\"text-2xl text-red-900\">\nThe quick brown fox.</p>\n`
+  """
+  def as_styled(contents, map \\ %{}) when is_binary(contents) do
     case EarmarkParser.as_ast(contents) do
       {:ok, ast, _} ->
         result = transformed(ast, map)
@@ -16,6 +30,10 @@ defmodule MarkStyle do
         {_, result, _} = Earmark.as_html(contents)
         result
     end
+  end
+
+  def as_styled_ast(ast, map \\ %{}) do
+    transformed(ast, map)
   end
 
   defp transformed([], _map), do: []
