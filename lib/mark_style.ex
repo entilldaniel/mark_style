@@ -3,7 +3,8 @@ defmodule MarkStyle do
   require Logger
 
   @moduledoc """
-  Utility for addings custom styles to html elements produced by earmark.
+  Utility wrapping earmark to simplify addition of styles to generated
+  html code.
   """
 
   @doc """
